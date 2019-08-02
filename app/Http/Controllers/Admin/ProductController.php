@@ -8,7 +8,10 @@ use App\Product;
 
 class ProductController extends Controller {
     public function index() {
-        return app('App\Http\Controllers\ProductController')->index([]);
+        return app('App\Http\Controllers\ProductController')->index([
+            'with' => ['type'],
+            'where' => ['status'=>1],
+        ]);
     }
 
     public function store(\App\Http\Requests\Product\Store $request) {
@@ -39,9 +42,10 @@ class ProductController extends Controller {
         ]);
     }
 
-    public function destroy(\App\Http\Requests\Product\Destroy $request, $id) {
+    public function destroy($id) {
         return app('App\Http\Controllers\ProductController')->destroy([
-            'id' => $request->id,
+            //'id' => $request->id,
+            'id' => $id,
         ]);
     }
 }

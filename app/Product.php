@@ -13,4 +13,8 @@ class Product extends Model
     	'visible',
     	'status',
     ];
+
+    public function type() {
+    	return $this->belongsTo('App\Type');
+    }
 }

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('contents.index');
 });
 
 Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function(){
@@ -24,3 +24,7 @@ Route::prefix('/guest')->name('guest.')->group(function(){
 	Route::apiResource('products', 'Guest\ProductController')->only('index', 'show');
 	Route::apiResource('types', 'Guest\TypeController')->only('index');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

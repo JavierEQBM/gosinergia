@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ModelController extends Controller {
     public function index(array $data) {
-        return $data['model']::all();
+        return $data['model']::with($data['with'])->where($data['where'])->get();
     }
 
     public function show(array $data) {

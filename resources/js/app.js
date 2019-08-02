@@ -4,9 +4,21 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+ require('./bootstrap');
 
-window.Vue = require('vue');
+ window.Vue = require('vue');
+
+ import Vue from 'vue'
+ import BootstrapVue from 'bootstrap-vue'
+ //import Vuesax from 'vuesax'
+
+ Vue.use(BootstrapVue);
+ //Vue.use(Vuesax);
+
+ import 'bootstrap/dist/css/bootstrap.css'
+ import 'bootstrap-vue/dist/bootstrap-vue.css'
+ //import 'vuesax/dist/vuesax.css' //Vuesax styles
+ //import 'material-icons/iconfont/material-icons.css';
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +32,9 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('form-product-component', require('./components/FormProductComponent.vue').default);
+Vue.component('products-component', require('./components/ProductsComponent.vue').default);
+Vue.component('product-component', require('./components/ProductComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

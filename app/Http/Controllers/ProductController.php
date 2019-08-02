@@ -9,6 +9,8 @@ class ProductController extends Controller {
     public function index(array $data) {
         return app('App\Http\Controllers\ModelController')->index([
             'model' => Product::class,
+            'with' => $data['with'],
+            'where' => $data['where'],
         ]);
     }
 
@@ -24,9 +26,8 @@ class ProductController extends Controller {
     }
 
     public function update(array $data) {
-        return [
-            'success' => Product::find($data['model_id'])->update($data['model']),
-        ];
+        Product::find($data['model_id'])->update($data['model']);
+        return Product::find($data['model_id']);
     }
 
     public function destroy(array $data) {
