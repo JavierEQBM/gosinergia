@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(\Illuminate\Support\Facades\Schema::hasTable('users')) {
+        Schema::defaultStringLength(191);
+
+        if(Schema::hasTable('users')) {
             $config = \App\Config::where('config', 'autologin')->get()->first();
 
             if(!is_null($config)) {
