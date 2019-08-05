@@ -21,7 +21,10 @@ class ConfigsTableSeeder extends Seeder
         ];
 
         foreach ($configs as $config) {
-        	$ConfigController->store($config);
+            $ConfigController->store([
+                'model' => $config,
+                'with' => [],
+            ]);
         }
     }
 }

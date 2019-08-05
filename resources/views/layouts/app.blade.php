@@ -26,6 +26,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <alert-component></alert-component>
     </div>
 </body>
 </html>

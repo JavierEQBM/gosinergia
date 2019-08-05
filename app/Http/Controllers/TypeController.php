@@ -9,11 +9,20 @@ class TypeController extends Controller {
     public function index(array $data) {
         return app('App\Http\Controllers\ModelController')->index([
             'model' => Type::class,
-            'with' => [],
+            'with' => $data['with'],
+            'where' => $data['where'],
         ]);
     }
 
     public function store(array $data) {
-        return Type::create($data);
+        $type = Type::create($data['model']);
+
+        return [
+            'success' => true,
+            'type' => $this->index([
+                'with' => $data['with'],
+                'where' => ['id'=>$type->id], 
+            ])->first()
+        ];
     }
 }

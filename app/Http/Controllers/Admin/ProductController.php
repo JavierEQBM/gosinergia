@@ -16,10 +16,16 @@ class ProductController extends Controller {
 
     public function store(\App\Http\Requests\Product\Store $request) {
         return app('App\Http\Controllers\ProductController')->store([
-            'name' => $request->name,
-            'sku' => $request->sku,
-            'type_id' => $request->type_id,
-            'visible' => $request->visible,
+            'model' => [
+                'name' => $request->name,
+                'sku' => $request->sku,
+                'type_id' => $request->type_id,
+                'visible' => $request->visible,
+            ],
+
+            'with' => [
+                'type',
+            ],
         ]);
     }
 
@@ -38,6 +44,10 @@ class ProductController extends Controller {
                 'name' => isset($request->name) ? $request->name : $product->name,
                 'type_id' => isset($request->type_id) ? $request->type_id : $product->type_id,
                 'visible' => isset($request->visible) ? $request->visible : $product->visible,
+            ],
+
+            'with' => [
+                'type',
             ],
         ]);
     }

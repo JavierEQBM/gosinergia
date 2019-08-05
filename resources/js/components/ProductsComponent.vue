@@ -1,12 +1,11 @@
 <template>
     <div>
-        <form-product-component @create="create"></form-product-component>
-
         <product-component 
             v-if="is_mounted" 
             v-for="(product, index) in products" 
             :key="product.id" 
             :product="product"
+            :types="types"
             :login="login"
             @update="update(...arguments)"
             @remove="remove(index)">
@@ -23,22 +22,29 @@
         data() {
             return {
                is_mounted : false,
-               products: []
+               products: [],
+               types: []
             }
         },
 
 
         methods : {
-            create(product){
+            store(product){
                 this.products.unshift(product);
             },
 
             update(product){
                 this.products[this.products.findIndex(p => p.id == product.id)].updated_at = product.updated_at;
+                this.products[this.products.findIndex(p => p.id == product.id)].type = product.type;
             },
 
             remove(product){
                 this.products.splice(product, 1);
+
+                this.$AlertHub.$emit('show', {
+                    title : 'Listo',
+                    message : 'El producto se eliminó exitosamente'
+                });
             }
         },
 
@@ -48,12 +54,23 @@
             }
         },
 
+        created() {
+            this.$ProductHub.$on('store', this.store)
+        },
+
         mounted() {
             this.is_mounted = true;
 
-            axios.get(this.index_route)
+            axios.get('guest/types')
                 .then((response) => {
-                    this.products = response.data;
+                    response.data.forEach((element, index) => {
+                        this.types.push({value:element.id,text:element.type});
+                    });
+
+                    axios.get(this.index_route)
+                        .then((response) => {
+                            this.products = response.data;
+                        });
                 });
         }
     }

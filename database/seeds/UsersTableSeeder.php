@@ -23,7 +23,10 @@ class UsersTableSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-        	$UserController->store($user);
+            $UserController->store([
+                'model' => $user,
+                'with' => [],
+            ]);
         }
     }
 }

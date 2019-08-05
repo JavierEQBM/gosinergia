@@ -15,7 +15,15 @@ class ProductController extends Controller {
     }
 
     public function store(array $data) {
-        return Product::create($data);
+        $product = Product::create($data['model']);
+
+        return [
+            'success' => true,
+            'product' => $this->index([
+                'with' => $data['with'],
+                'where' => ['id'=>$product->id], 
+            ])->first()
+        ];
     }
 
     public function show(array $data) {
@@ -27,7 +35,14 @@ class ProductController extends Controller {
 
     public function update(array $data) {
         Product::find($data['model_id'])->update($data['model']);
-        return Product::find($data['model_id']);
+
+        return [
+            'success' => true,
+            'product' => $this->index([
+                'with' => $data['with'],
+                'where' => ['id'=>$data['model_id']], 
+            ])->first()
+        ];
     }
 
     public function destroy(array $data) {
@@ -36,6 +51,7 @@ class ProductController extends Controller {
             'model' => [
                 'status' => false,
             ],
+            'with' => [],
         ]);
     }
 }

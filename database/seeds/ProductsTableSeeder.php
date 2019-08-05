@@ -34,7 +34,10 @@ class ProductsTableSeeder extends Seeder
         ];
 
         foreach ($products as $product) {
-        	$ProductController->store($product);
+        	$ProductController->store([
+                'model' => $product,
+                'with' => [],
+            ]);
         }
     }
 }

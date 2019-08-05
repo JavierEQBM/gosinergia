@@ -24,7 +24,10 @@ class TypesTableSeeder extends Seeder
         ];
 
         foreach ($types as $type) {
-        	$TypeController->store($type);
+            $TypeController->store([
+                'model' => $type,
+                'with' => [],
+            ]);
         }
     }
 }
